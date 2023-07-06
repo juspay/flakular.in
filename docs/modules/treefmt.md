@@ -1,5 +1,5 @@
 ---
-slug: /treefmt
+slug: /treefmt-nix
 ---
 
 # Auto formatting (`treefmt-nix`)

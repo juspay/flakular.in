@@ -30,7 +30,7 @@ and import its flakeModule:
 
 ## Add a script (Haskell)
 
-Here we'll show a sample of scripts that are particular useful when developing [Haskell](/haskell) projects.
+Here we'll show a sample of scripts that are particular useful when developing [Haskell](/haskell-flake) projects.
 
 ### Docs (Hoogle)
 
@@ -76,7 +76,7 @@ To start a cabal repl from your devShell on running  `, repl`, use:
 
 ### treefmt
 
-If you use the [treefmt](/treefmt) module for autoformatting the source tree, you can alias it as `, fmt`:
+If you use the [treefmt](/treefmt-nix) module for autoformatting the source tree, you can alias it as `, fmt`:
 
 ```nix
 { 
