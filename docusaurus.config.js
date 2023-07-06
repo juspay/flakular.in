@@ -119,6 +119,8 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} Juspay, Inc. Built with Docusaurus.`,
       },
       prism: {
+        defaultLanguage: 'nix',
+        additionalLanguages: ['haskell', 'nix', 'rust'],
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
