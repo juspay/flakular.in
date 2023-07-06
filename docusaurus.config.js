@@ -93,7 +93,7 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
+                label: 'Get Started',
                 to: '/intro',
               },
             ],
@@ -125,7 +125,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Juspay, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Juspay, Inc.`,
       },
       prism: {
         defaultLanguage: 'nix',
