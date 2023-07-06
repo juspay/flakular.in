@@ -70,10 +70,15 @@ const config = {
             position: 'left',
             label: 'Content',
           },
-        ],
-      },
-      footer: {
-        style: 'dark',
+          {
+            href: 'https://github.com/juspay/zero-to-flakes',
+            label: 'GitHub',
+            position: 'right',
+          },
+      ],
+    },
+    footer: {
+      style: 'dark',
         links: [
           {
             title: 'Docs',
