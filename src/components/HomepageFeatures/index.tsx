@@ -10,32 +10,32 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
+    title: 'Reproducible Builds',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Whether it is a <em>development environment</em> or the <em>final
+        builds</em>, Nix flakes can do it.
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
+    title: 'Simple to read Nix',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        The <code>flake-parts</code> module system facilitates writing Nix that
+        is almost as easy as modifying YAML files.
       </>
     ),
   },
   {
-    title: 'Powered by React',
+    title: 'Extreme Productivity',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Developers spend their time creating software rather than battling build
+        system.
       </>
     ),
   },
