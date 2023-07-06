@@ -1,7 +1,6 @@
 ---
 sidebar_position: 1
+slug: /store
 ---
 
-# Foo
-
-foo
+# The Nix Store
