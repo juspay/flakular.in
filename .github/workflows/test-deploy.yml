@@ -13,6 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v4
+      - name: Symlink flake inputs
+        run: nix develop -c echo
       - uses: actions/setup-node@v3
         with:
           node-version: 18
