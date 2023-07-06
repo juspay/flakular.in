@@ -7,6 +7,11 @@
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
     flake-root.url = "github:srid/flake-root";
     mission-control.url = "github:Platonic-Systems/mission-control";
+
+    # Flake modules containing their documentation that will be rendered by our
+    # site.
+    haskell-flake.url = "github:srid/haskell-flake/zero-to-flakes";
+    haskell-flake.flake = false;
   };
 
   outputs = inputs:
@@ -49,6 +54,14 @@
             config.mission-control.devShell
             config.treefmt.build.devShell
           ];
+          shellHook = ''
+            # TODO: Cleaner way of doing this
+            echo "Symlinking flake inputs:"
+            set -x
+            rm -f $FLAKE_ROOT/docs/modules/haskell
+            ln -vsf ${inputs.haskell-flake}/doc $FLAKE_ROOT/docs/modules/haskell
+            set +x
+          '';
           nativeBuildInputs = [
             pkgs.nodejs
           ];
