@@ -1,0 +1,9 @@
+{
+  "label": "Best Practices",
+  "position": 5,
+  "link": {
+    "type": "generated-index",
+    "description": "Recommended workflows when working on a Nix-based projects",
+    "slug": "/practices"
+  }
+}
