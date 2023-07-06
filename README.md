@@ -2,6 +2,8 @@
 
 ## Local
 
+In nix shell,
+
 ```bash
-npm start
+, run
 ```
