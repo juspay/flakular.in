@@ -30,7 +30,7 @@ and import its flakeModule:
 
 ## Add a script (Haskell)
 
-Here we'll show a sample of scripts that are particular useful when developing [Haskell](/haskell-flake) projects.
+Here we'll show a sample of scripts that are particular useful when developing `[Haskell](/haskell-flake)` projects.
 
 ### Docs (Hoogle)
 
