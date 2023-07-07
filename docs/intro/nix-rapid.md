@@ -71,12 +71,10 @@ nix-repl>
 ## Flakes
 
 :::info To learn more
-To learn more:
 - [Serokell Blog: Basic flake structure](https://serokell.io/blog/practical-nix-flakes#basic-flake-structure)
-- [Enable flakes](https://nixos.wiki/wiki/Flakes#Enable_flakes) (flakes are not enabled by default)
 :::
 
-A Nix flake is defined in the `flake.nix` file, which denotes an attrset containing the keys "inputs" and "outputs". *Outputs* can reference *inputs*. Thus, changing an *input* can change the *outputs*. The following is a simple example of a flake:
+A Nix flake is defined in the `flake.nix` file, which denotes an attrset containing two keys `inputs` and `outputs`. *Outputs* can reference *inputs*. Thus, changing an *input* can change the *outputs*. The following is a simple example of a flake:
 
 ```nix
 {
@@ -99,7 +97,7 @@ path:/Users/srid/code/nixplay?lastModified=1675373998&narHash=sha256-ifNiFGU1VV7
 $
 ```
 
-And we can use [`nix eval`][nix-eval] to evaluate any output. For example,
+We can use [`nix eval`][nix-eval] to evaluate any output. For example,
 
 ```sh
 $ nix eval .#foo
@@ -113,7 +111,6 @@ A flake can refer to other flakes in its inputs. Phrased differently, a flake's 
 ### Inputs
 
 :::info To learn more
-To learn more,
 - [URL-like syntax][flake-url] used by the `url` attribute
 :::
 
