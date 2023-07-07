@@ -14,7 +14,10 @@ Often you'll see an error like this,
 error: getting status of '/nix/store/vlks3d7fr5ywc923pvqacx2bkzm1782j-source/foo': No such file or directory
 ```
 
-This usually mean you have not staged this new file or directory to the Git
-index. When using flakes, Nix will not see untracked files by default. See
-https://github.com/NixOS/nix/issues/8389
+This usually means you have not staged this new file/ directory to the Git
+index. When using flakes, Nix will not see untracked files/ directories by default. To resolve this, just `git add` the untracked file/ directory.
+
+:::info For further information
+https://github.com/NixOS/nix/issues/8389. 
+:::
 

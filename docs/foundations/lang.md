@@ -4,3 +4,7 @@ slug: /lang
 ---
 
 # The Nix Language
+
+:::warning TODO
+Write this
+:::
