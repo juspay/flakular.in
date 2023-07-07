@@ -9,7 +9,7 @@ const path = require("path")
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Zero to Flakes',
-  tagline: 'A guide to software development using flakes and flake-parts',
+  tagline: 'A guide to writing modular Nix flakes for developing software and systems',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here

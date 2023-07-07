@@ -14,8 +14,9 @@ const FeatureList: FeatureItem[] = [
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
       <>
-        Whether it is a <em>development environment</em> or the <em>final
-        builds</em>, Nix flakes can do it.
+        Whether it is <em>development environment</em> or <em>final
+        builds</em>, Nix flakes define and reproduce them reliably on any
+        system.  
       </>
     ),
   },
@@ -25,7 +26,7 @@ const FeatureList: FeatureItem[] = [
     description: (
       <>
         The <code>flake-parts</code> module system facilitates writing Nix that
-        is almost as easy as modifying YAML files.
+        is almost as easy as writing/ modifying YAML files.
       </>
     ),
   },
