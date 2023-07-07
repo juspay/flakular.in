@@ -111,7 +111,7 @@ const config = {
               },
               {
                 label: 'Twitter',
-                href: 'https://twitter.com/zero-to-nix',
+                href: 'https://twitter.com/zerotoflakes',
               },
             ],
           },
