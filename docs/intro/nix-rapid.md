@@ -4,11 +4,11 @@ slug: /nix-rapid
 
 # Rapid Introduction to Nix
 
-:::caution
-This is a legacy tutorial. We'll cover the topics in detail under [Foundations](../foundations).
-:::
-
 The goal of this document is to introduce you to Nix as quickly as possible while also preparing the motivated learner to dive deeper into [the whole Nix ecosystem][zero-to-nix]. At the end of this introduction, you will be able to create a flake for building a package and providing a developer environment shell.
+
+:::info Note
+The concepts introduced in this tutorial will be explained in detail under [Foundations](../foundations), which should read to familiarize yourself with the flake-parts ecosystem.
+:::
 
 If you are already experienced in purely functional programming, it is highly recommended to read [Nix - taming Unix with functional programming](https://www.tweag.io/blog/2022-07-14-taming-unix-with-nix/) to gain a foundational perspective into Nix being purely functional but in the context of file system (as opposed to values stored in memory).
 
@@ -16,12 +16,11 @@ If you are already experienced in purely functional programming, it is highly re
 
 ## Install
 
-Nix can be installed on Linux and macOS. Follow the instructions on [[nix]]. If you are using [NixOS], it already comes with Nix pre-installed.
+Nix can be [installed on Linux and macOS](/install). If you are using NixOS, it already comes with Nix pre-installed.
 
 ## Attrset
 
-:::{.more}
-To learn more:
+:::tip To learn more
 - [Official manual](https://nixos.org/manual/nix/stable/language/values.html#attribute-set)
 - [nix.dev on attrsets](https://nix.dev/tutorials/nix-language#attribute-set)
 :::
@@ -71,7 +70,7 @@ nix-repl>
 
 ## Flakes
 
-:::{.more}
+:::tip To learn more
 To learn more:
 - [Serokell Blog: Basic flake structure](https://serokell.io/blog/practical-nix-flakes#basic-flake-structure)
 - [Enable flakes](https://nixos.wiki/wiki/Flakes#Enable_flakes) (flakes are not enabled by default)
@@ -113,7 +112,7 @@ A flake can refer to other flakes in its inputs. Phrased differently, a flake's 
 
 ### Inputs
 
-:::{.more}
+:::tip To learn more
 To learn more,
 - [URL-like syntax][flake-url] used by the `url` attribute
 :::
@@ -135,8 +134,7 @@ Let's do something more interesting with our `flake.nix` by adding the nixpkgs i
 
 The nixpkgs flake has an output called `legacyPackages`, which is indexed by the platform (called "system" in Nix-speak), further containing all the packages for that system. We assign that package to our flake output key `foo`. 
 
-:::{.tip}
-**Tip**:
+:::tip
 
 You can use [`nix repl`][nix-repl] to explore the outputs of any flake, using TAB completion:
 
@@ -168,8 +166,7 @@ All of these predefined outputs are further indexed by the "system" value.
 
 #### Packages 
 
-:::{.more}
-To learn more,
+:::tip To learn more
 - [`pkgs.stdenv.mkDerivation`](https://nixos.org/manual/nixpkgs/stable/#sec-using-stdenv) can be used to build a custom package from scratch
 :::
 
@@ -227,9 +224,7 @@ If you run `nix build` without arguments, it will default to `.#default`.
 
 #### DevShells
 
-
-:::{.more}
-To learn more,
+:::tip To learn more
 - [Official Nix manual][mkShell]
 - [NixOS Wiki](https://nixos.wiki/wiki/Development_environment_with_nix-shell)
 :::
