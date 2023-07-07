@@ -10,7 +10,7 @@
 
     # Flake modules containing their documentation that will be rendered by our
     # site.
-    haskell-flake.url = "github:srid/haskell-flake/zero-to-flakes";
+    haskell-flake.url = "github:srid/haskell-flake";
     haskell-flake.flake = false;
   };
 
