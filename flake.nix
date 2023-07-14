@@ -22,6 +22,14 @@
         inputs.flake-root.flakeModule
         inputs.mission-control.flakeModule
       ];
+      flake = {
+        flakePartModuleDocs = {
+          haskell-flake = inputs.haskell-flake + /doc;
+        };
+        flakePartModuleDocsLocalOverrides = {
+          # haskell-flake = "$HOME/code/haskell-flake/doc";
+        };
+      };
       perSystem = { self', system, lib, config, pkgs, ... }: {
         # Auto formatters. This also adds a flake check to ensure that the
         # source tree was auto formatted.
@@ -55,11 +63,14 @@
             config.treefmt.build.devShell
           ];
           shellHook = ''
-            # TODO: Cleaner way of doing this
             echo "Symlinking flake inputs:"
             set -x
-            rm -f $FLAKE_ROOT/docs/modules/haskell
-            ln -vsf ${inputs.haskell-flake}/doc $FLAKE_ROOT/docs/modules/haskell
+            ${
+              lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: ''
+                rm -f $FLAKE_ROOT/docs/modules/${k}
+                ln -sf ${v} $FLAKE_ROOT/docs/modules/${k}
+              '') (inputs.self.flakePartModuleDocs // inputs.self.flakePartModuleDocsLocalOverrides))
+            }
             set +x
           '';
           nativeBuildInputs = [

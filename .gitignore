@@ -24,4 +24,4 @@ result
 .direnv
 
 # Flake inputs symlinked via nix shell
-docs/modules/haskell
+docs/modules/haskell-flake
