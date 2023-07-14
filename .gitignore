@@ -25,3 +25,4 @@ result
 
 # Flake inputs symlinked via nix shell
 docs/modules/haskell-flake
+docs/modules/nixos-flake

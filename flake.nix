@@ -12,6 +12,8 @@
     # site.
     haskell-flake.url = "github:srid/haskell-flake";
     haskell-flake.flake = false;
+    nixos-flake.url = "github:srid/nixos-flake";
+    nixos-flake.flake = false;
   };
 
   outputs = inputs:
@@ -24,10 +26,14 @@
       ];
       flake = {
         flakePartModuleDocs = {
+          # TODO
+          # custom_edit_url: https://github.com/srid/haskell-flake/edit/master/doc/index.md
           haskell-flake = inputs.haskell-flake + /doc;
+          nixos-flake = inputs.nixos-flake + /doc;
         };
         flakePartModuleDocsLocalOverrides = {
           # haskell-flake = "$HOME/code/haskell-flake/doc";
+          # nixos-flake = "$HOME/code/nixos-flake/doc";
         };
       };
       perSystem = { self', system, lib, config, pkgs, ... }: {
