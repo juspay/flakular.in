@@ -4,3 +4,9 @@
 [submodule "ext/nixos-flake"]
 	path = ext/nixos-flake
 	url = https://github.com/srid/nixos-flake.git
+[submodule "ext/services-flake"]
+	path = ext/services-flake
+	url = https://github.com/juspay/services-flake
+[submodule "ext/process-compose-flake"]
+	path = ext/process-compose-flake
+	url = https://github.com/Platonic-Systems/process-compose-flake.git
