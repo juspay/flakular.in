@@ -8,3 +8,5 @@ slug: /lang
 :::warning TODO
 Write this
 :::
+
+[nix-1p](https://github.com/tazjin/nix-1p)

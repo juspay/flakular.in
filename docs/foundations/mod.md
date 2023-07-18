@@ -8,3 +8,5 @@ slug: /mod
 :::warning TODO
 Write this
 :::
+
+[NixOS Wiki on modules](https://nixos.wiki/wiki/NixOS_modules)
