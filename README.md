@@ -23,4 +23,4 @@ Unfortunately, [Docusaurus](https://docusaurus.io) is not great with cross-linki
 
 ### Preview & CI
 
-WIP: https://github.com/juspay/zero-to-flakes/issues/6
+When editing the docs of your flake-parts modules, if there is a git submodule reference to them, you can do those edits in that submodule checkout. The local server will pickup those changes.
