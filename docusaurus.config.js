@@ -61,6 +61,15 @@ const config = {
     ({
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
+      /*
+      announcementBar: {
+        id: 'wip',
+        content: 'Zero to Flakes is a <a href="/about">work in progress</a>.',
+        backgroundColor: '#fafbfc',
+        textColor: '#091E42',
+        isCloseable: true,
+      },
+      */
       navbar: {
         title: 'Zero to Flakes',
         logo: {
