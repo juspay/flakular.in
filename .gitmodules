@@ -1,0 +1,6 @@
+[submodule "ext/haskell-flake"]
+	path = ext/haskell-flake
+	url = https://github.com/srid/haskell-flake.git
+[submodule "ext/nixos-flake"]
+	path = ext/nixos-flake
+	url = https://github.com/srid/nixos-flake.git

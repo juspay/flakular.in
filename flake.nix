@@ -7,13 +7,6 @@
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
     flake-root.url = "github:srid/flake-root";
     mission-control.url = "github:Platonic-Systems/mission-control";
-
-    # Flake modules containing their documentation that will be rendered by our
-    # site.
-    haskell-flake.url = "github:srid/haskell-flake";
-    haskell-flake.flake = false;
-    nixos-flake.url = "github:srid/nixos-flake";
-    nixos-flake.flake = false;
   };
 
   outputs = inputs:
@@ -24,18 +17,6 @@
         inputs.flake-root.flakeModule
         inputs.mission-control.flakeModule
       ];
-      flake = {
-        flakePartModuleDocs = {
-          # TODO
-          # custom_edit_url: https://github.com/srid/haskell-flake/edit/master/doc/index.md
-          haskell-flake = inputs.haskell-flake + /doc;
-          nixos-flake = inputs.nixos-flake + /doc;
-        };
-        flakePartModuleDocsLocalOverrides = {
-          # haskell-flake = "$HOME/code/haskell-flake/doc";
-          # nixos-flake = "$HOME/code/nixos-flake/doc";
-        };
-      };
       perSystem = { self', system, lib, config, pkgs, ... }: {
         # Auto formatters. This also adds a flake check to ensure that the
         # source tree was auto formatted.
@@ -57,6 +38,12 @@
               npm start
             '';
           };
+          build = {
+            description = "Build the static site";
+            exec = ''
+              npm run build
+            '';
+          };
         };
 
         # Default shell.
@@ -68,17 +55,6 @@
             config.mission-control.devShell
             config.treefmt.build.devShell
           ];
-          shellHook = ''
-            echo "Symlinking flake inputs:"
-            set -x
-            ${
-              lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: ''
-                rm -f $FLAKE_ROOT/docs/modules/${k}
-                ln -sf ${v} $FLAKE_ROOT/docs/modules/${k}
-              '') (inputs.self.flakePartModuleDocs // inputs.self.flakePartModuleDocsLocalOverrides))
-            }
-            set +x
-          '';
           nativeBuildInputs = [
             pkgs.nodejs
           ];
