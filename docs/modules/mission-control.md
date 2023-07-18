@@ -1,8 +1,10 @@
 ---
 slug: /mission-control
+sidebar_label: Scripts (mission-control)
+sidebar_position: 2
 ---
 
-# Devshell scripts (`mission-control`)
+# mission-control
 
 The [mission-control](https://github.com/Platonic-Systems/mission-control) flake-parts module enables creating a set of scripts or commands to run in the Nix dev shell. This makes it possible for the project's user to locate all of the commands they need (to get started) in one place, often replacing the likes of `Makefile` or `bin/` scripts.
 

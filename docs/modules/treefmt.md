@@ -1,5 +1,6 @@
 ---
 slug: /treefmt-nix
+sidebar_position: 10
 ---
 
 # Auto formatting (`treefmt-nix`)
