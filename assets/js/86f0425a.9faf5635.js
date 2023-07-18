@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkzero_to_flakes=self.webpackChunkzero_to_flakes||[]).push([[436],{8752:e=>{e.exports=JSON.parse('{"title":"Ref","slug":"/nixos-flake/ref","permalink":"/nixos-flake/ref","navigation":{"previous":{"title":"Getting Started","permalink":"/nixos-flake/start"},"next":{"title":"Module outputs","permalink":"/nixos-flake/module-outputs"}}}')}}]);
