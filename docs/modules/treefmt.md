@@ -1,9 +1,10 @@
 ---
 slug: /treefmt-nix
 sidebar_position: 10
+sidebar_label: Auto formatting
 ---
 
-# Auto formatting (`treefmt-nix`)
+# Auto formatting using `treefmt-nix`
 
 [treefmt](https://github.com/numtide/treefmt) provides an interface to run multiple [code formatters](https://en.wikipedia.org/wiki/Prettyprint) at once, so you don't have to run them manually for each file type.
 
