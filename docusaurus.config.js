@@ -84,6 +84,11 @@ const config = {
             label: 'Content',
           },
           {
+            to: 'about',
+            position: 'left',
+            label: 'About',
+          },
+          {
             href: 'https://github.com/juspay/zero-to-flakes',
             label: 'GitHub',
             position: 'right',
