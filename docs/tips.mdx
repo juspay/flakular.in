@@ -1,0 +1,37 @@
+---
+slug: /tips
+---
+
+# Tips
+
+## Building all flake outputs locally{#nixci}
+
+Use [nixci],
+
+```sh
+nix run github:srid/nixci
+```
+
+You can build it for a particular system as well,
+
+```sh
+nix run github:srid/nixci -- --system aarch64-linux
+```
+
+## Copying packages to a remote Nix store{#nix-copy}
+
+This is useful if your local machine is powerful and you built a number of
+packages on it, but want to re-use them on another machine, without using a Nix
+cache.
+
+```sh
+nix copy --to ssh-ng://admin@100.96.121.13 /nix/store/???
+```
+
+If you use [nixci], this looks like:
+
+```sh
+nixci --system aarch64-linux | xargs nix copy --to ssh-ng://admin@100.96.121.13
+```
+
+[nixci]: https://github.com/srid/nixci
