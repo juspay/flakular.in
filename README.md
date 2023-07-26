@@ -5,7 +5,7 @@
 In nix shell,
 
 ```bash
-, run
+just run
 ```
 
 ## Guidelines for writing docs
