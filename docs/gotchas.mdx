@@ -20,3 +20,13 @@ index. When using flakes, Nix will not see untracked files/ directories by defau
 :::info For further information
 https://github.com/NixOS/nix/issues/8389. 
 :::
+
+## Nix is broken after macOS upgrade {#macos-upgrade}
+
+Upgrading macOS is known to break Nix. When this happens, just uninstall Nix and then [install](/install) it again.
+
+1. Uninstall Nix
+    - Run `/nix/nix-installer uninstall`
+    - If that path above does not exist, [follow these instructions](https://iohk.zendesk.com/hc/en-us/articles/4415830650265-Uninstall-nix-on-MacOS) to manually unintall Nix.
+1. Reboot your Mac
+1. [Install Nix](/install)
