@@ -4,34 +4,38 @@ slug: /direnv
 
 # Using direnv to manage dev environments
 
-`direnv`, and [nix-direnv] in particular, is an important piece of tool you can use to both persist nix devshell environments and to share it automatically with text editors and IDEs. It also obviates having to run `nix develop` manually every time you open a new terminal. The moment you `cd` into your project directory, the devshell is automatically activated, thanks to `direnv`. 
+`direnv` (along with [nix-direnv]) allows one to persist[^gc] nix devshell environments and share them seamlessly with text editors and IDEs. It obviates having to run `nix develop` manually every time you open a new terminal. The moment you `cd` into your project directory, the devshell is automatically activated, thanks to `direnv`. 
 
-## Starship
+[^gc]: [nix-direnv] prevents garbage collection of the devshell, so you do not have to re-download things again. direnv also enables activating the devshell in your current shell, without needing to use a customized bash.
 
-It is recommended to use [starship](https://starship.rs/) along with nix-direnv, because it gives a visual indication of the current environment. For example, if you are in a `nix develop` shell, your terminal prompt automatically changes to something like this:
+:::tip Starship
+It is recommended to use [**starship**](https://starship.rs/) along with nix-direnv, because it gives a visual indication of the current environment. For example, if you are in a `nix develop` shell, your terminal prompt automatically changes to something like this:
 
 ```sh
 srid on nixos haskell-template on  master [!] via λ 9.2.6 via ❄️  impure (ghc-shell-for-haskell-template-0.1.0.0-0-env)
 ❯
 ```
+:::
 
 ## Setup 
 
-If you use [home-manager](https://github.com/nix-community/home-manager), both `nix-direnv` and `starship` can be installed using the following configuration:
+If you use [home-manager], both `nix-direnv` and `starship` can be installed using the following configuration:
 
-```nix
+```nix title="home.nix"
 programs.direnv = {
   enable = true;
-  nix-direnv = {
-    enable = true;
-  };
+  nix-direnv.enable = true;
 };
 programs.starship = {
   enable = true;
 };
 ```
 
-Alternatively, if you are just getting started with home-manager, you can use the https://github.com/juspay/nix-dev-home template (based on [nixos-flake](https://github.com/srid/nixos-flake)), which works on both Linux or macOS.
+:::tip Newcomer Tip
+If you have never used [home-manager] before, we recommend that you set it up[^nf] by following the instrutions at https://github.com/juspay/nix-dev-home.
+:::
+
+[^nf]: The "nix-dev-home" template uses [nixos-flake](/nixos-flake), and works on both Linux or macOS.
 
 ### Text Editor configuration
 
@@ -43,29 +47,30 @@ For VSCode, use [Martin Kühl's direnv extension](https://marketplace.visualstud
 
 Doom Emacs has the [`:tools` `direnv` module](https://github.com/doomemacs/doomemacs/tree/master/modules/tools/direnv) to automatically load the devshell environment when you open the project directory.
 
-## `.envrc`
+## Add a `.envrc`
 
 To enable direnv on Flake-based projects, add the following to your `.envrc`:
 
-```text
+```text title=".envrc"
 use flakes
 ```
 
 Now run `direnv allow` to authorize the current `.envrc` file. You can now `cd` into the project directory in a terminal and the devshell will be automatically activated.
 
-## Reload when .cabal file changes
+### Reload when .cabal file changes
 
-Since both [[nixpkgs-haskell|nixpkgs]] and [[start|haskell-flake]] use Nix expressions that read the `.cabal` file to get dependency information, you will want the devshell be recreated every time a `.cabal` file changes. This can be achieved using the `nix_direnv_watch_file` function. Modify your `.envrc` to contain:
+Since both [nixpkgs](/nixpkgs-haskell) and [haskell-flake](/haskell-flake) use Nix expressions that read the `.cabal` file to get dependency information, you will want the devshell be recreated every time a `.cabal` file changes. This can be achieved using the `nix_direnv_watch_file` function. Modify your `.envrc` to contain:
 
-```text
+```text title=".envrc"
 nix_direnv_watch_file *.cabal
 use flake
 ```
 
-As a result of this whenever you change a `.cabal` file, direnv will reload the environment. If you are using VSCode, you will see a notification that the environment has changed, prompting you to restart it.
+As a result of this whenever you change a `.cabal` file, direnv will reload the environment. If you are using VSCode, you will see a notification that the environment has changed, prompting you to restart it ([see example](https://github.com/nammayatri/nammayatri/tree/main/Backend#visual-studio-code)).
 
 ## External Links
 
 - [Effortless dev environments with Nix and direnv](https://determinate.systems/posts/nix-direnv)
 
 [nix-direnv]: https://github.com/nix-community/nix-direnv
+[home-manager]: https://github.com/nix-community/home-manager
