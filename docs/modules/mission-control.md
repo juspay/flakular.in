@@ -6,6 +6,10 @@ sidebar_position: 2
 
 # Devshell scripts using `mission-control`
 
+:::info Note
+As a simpler alternative to `mission-control`, you may also use [just](https://just.systems/man/en/) (see [example use](https://github.com/srid/haskell-template/pull/111)).
+:::
+
 The [mission-control](https://github.com/Platonic-Systems/mission-control) flake-parts module enables creating a set of scripts or commands to run in the Nix dev shell. This makes it possible for the project's user to locate all of the commands they need (to get started) in one place, often replacing the likes of `Makefile` or `bin/` scripts.
 
 ## Usage
@@ -109,12 +113,8 @@ If you don't wish to run your command using `, <command>` you can change the `,`
 }
 ```
 
-## Upcoming
-
-- [Zsh and bash shell completion](https://github.com/Platonic-Systems/mission-control/issues/4)
-
 ## Example
 
-- https://github.com/srid/haskell-template/blob/master/flake.nix
+- [haskell-template's flake.nix](https://github.com/srid/haskell-template/blob/7e4d9c630204c2b64bb071837a5a63f35cfac5d8/flake.nix#L83-L112)
 
 [mission-control]: https://github.com/Platonic-Systems/mission-control
