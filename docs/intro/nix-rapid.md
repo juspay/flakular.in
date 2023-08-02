@@ -25,7 +25,7 @@ Nix can be [installed on Linux and macOS](/install). If you are using NixOS, it 
 - [nix.dev on attrsets](https://nix.dev/tutorials/nix-language#attribute-set)
 :::
 
-The [Nix programming language][nix-lang] provides a lot of general constructs. But at its most basic use, it makes heavy use of ==nested hash maps==, otherwise called an "attrset". They are equivalent to [`Map Text a`](https://hackage.haskell.org/package/containers-0.6.7/docs/Data-Map-Strict.html#t:Map) in Haskell. The following is a simple example of an attrset:
+The [Nix programming language][nix-lang] provides a lot of general constructs. But at its most basic use, it makes heavy use of *nested hash maps* otherwise called an "attrset". They are equivalent to [`Map Text a`](https://hackage.haskell.org/package/containers-0.6.7/docs/Data-Map-Strict.html#t:Map) in Haskell. The following is a simple example of an attrset:
 
 ```nix
 {
