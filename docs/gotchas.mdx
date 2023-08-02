@@ -6,6 +6,26 @@ slug: /gotchas
 
 Nix can behave unexpectedly in certain cases.
 
+## nix-health reports an error {#nix-health}
+
+[nix-health] can report one of the following errors:
+
+### `Multiple versions of nix found in PATH` {#multiple-nix-versions}
+
+You probably have Nix installed in root profile:
+
+```
+sudo nix-env -q
+```
+
+Remove that,
+
+```
+sudo nix-env --uninstall nix
+```
+
+[Source](https://discourse.nixos.org/t/fail-multiple-versions-of-nix-found-in-path/19890/4?u=srid)
+
 ## Nix does not recognize a new file I added {#git-untracked}
 
 Often you'll see an error like this,
