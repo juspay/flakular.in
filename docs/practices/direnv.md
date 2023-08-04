@@ -19,6 +19,19 @@ srid on nixos haskell-template on  master [!] via λ 9.2.6 via ❄️  impure
 
 ## Setup 
 
+```mdx-code-block
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+
+<div className="video-container">
+  <LiteYouTubeEmbed
+    id="1joZLTgYLxY" 
+    title="wtf is direnv?"
+  />
+</div>
+```
+
+
+
 If you use [home-manager], both `nix-direnv` and `starship` can be installed using the following configuration:
 
 ```nix title="home.nix"
