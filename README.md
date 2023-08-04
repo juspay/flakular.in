@@ -24,3 +24,7 @@ Unfortunately, [Docusaurus](https://docusaurus.io) is not great with cross-linki
 ### Preview & CI
 
 When editing the docs of your flake-parts modules, if there is a git submodule reference to them, you can do those edits in that submodule checkout. The local server will pickup those changes.
+
+### Submodules
+
+Individual module's docs are stored as git submodules. Run `just update` to update them all.

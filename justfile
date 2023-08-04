@@ -12,3 +12,7 @@ run:
 # Build static site
 build:
     npm run build
+
+# Update all submodules to latest HEAD
+update:
+    git submodule update --recursive --remote
