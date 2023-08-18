@@ -10,7 +10,7 @@ const path = require("path")
 const config = {
   title: 'Zero to Flakes',
   tagline: 'A guide to writing modular Nix flakes for developing software and systems',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/logo.svg',
 
   // Set the production url of your site here
   url: 'https://zero-to-flakes.com',
