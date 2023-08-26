@@ -65,7 +65,7 @@ Doom Emacs has the [`:tools` `direnv` module](https://github.com/doomemacs/doome
 To enable direnv on Flake-based projects, add the following to your `.envrc`:
 
 ```text title=".envrc"
-use flakes
+use flake
 ```
 
 Now run `direnv allow` to authorize the current `.envrc` file. You can now `cd` into the project directory in a terminal and the devshell will be automatically activated.
