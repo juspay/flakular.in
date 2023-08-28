@@ -3,8 +3,15 @@
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
-const path = require("path")
+const fs = require("fs");
+const path = require("path");
 
+const extOriginRepo = {
+  'ext/haskell-flake': 'https://github.com/srid/haskell-flake.git',
+  'ext/nixos-flake': 'https://github.com/srid/nixos-flake.git',
+  'ext/services-flake': 'https://github.com/juspay/services-flake.git',
+  'ext/process-compose-flake': 'https://github.com/Platonic-Systems/process-compose-flake.git',
+};
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -44,8 +51,26 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/juspay/zero-to-flakes/tree/main/',
+          editUrl: ({ docPath, versionDocsDirPath }) => {
+            const versionDocPath = path.join(versionDocsDirPath, docPath);
+            let editURL;
+            const realPath = fs.realpathSync(versionDocPath);
+            const extPath = Object.keys(extOriginRepo).find(
+              extPath => realPath.includes(extPath)
+            );
+            if (extPath) {
+              const extOriginRepoURL = extOriginRepo[extPath];
+              const extGitPath = path.join('.git/modules', extPath);
+              const refContent = fs.readFileSync(path.join(extGitPath, 'HEAD'), 'utf-8').trim();
+              const commitHash = refContent.startsWith('ref:')
+                ? fs.readFileSync(path.join(extGitPath, refContent.split(' ')[1]), 'utf-8').trim()
+                : refContent;
+             editURL = `${extOriginRepoURL.replace(/\.git$/, '')}/blob/${commitHash}/${path.relative(extPath, realPath)}`;
+            } else {
+              editURL = `https://github.com/juspay/zero-to-flakes/tree/main/${versionDocPath}`;
+            }
+            return editURL;
+          },
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
