@@ -3,20 +3,83 @@
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
-const extOriginRepo = {
-  'ext/haskell-flake': 'https://github.com/srid/haskell-flake.git',
-  'ext/nixos-flake': 'https://github.com/srid/nixos-flake.git',
-  'ext/services-flake': 'https://github.com/juspay/services-flake.git',
-  'ext/process-compose-flake': 'https://github.com/Platonic-Systems/process-compose-flake.git',
+// Parse the .gitmodules file and return the paths to the links of all modules.
+//
+// () => { { path: string; url: string; hash: string | undefined; }[] }
+const getModules = () => {
+  //
+  const config = path.join('.gitmodules');
+  const content = fs.readFileSync(config, 'utf-8');
+
+  // { path: string; url: string; hash: string | undefined; }[]
+  const modules = [];
+  const regex = /\[submodule "(.+)"\][\s]*path = (.+)[\s]*url = (.+)/g;
+
+  for (let match; (match = regex.exec(content)) !== null; ) {
+    const [, mPath, , mUrl] = match;
+    const headPath = path.join('.git', 'modules', mPath, 'HEAD');
+
+    const mHash = (() => {
+      try {
+        const content = fs.readFileSync(headPath, 'utf-8');
+        return content.trim();
+      } catch (error) {
+        console.error(`Error reading ${headPath}: ${error.message}`);
+        return undefined;
+      }
+    })();
+    modules.push({
+      path: mPath,
+      // example.forge/foo.git -> example.forge/foo
+      url: mUrl.replace(/\.git$/, ''),
+      hash: mHash,
+    });
+  }
+
+  // In the absence of parsing outcomes, what should be taken?
+
+  return modules;
+};
+
+const modules = getModules();
+
+// Construct the link of a document back to its original repository.
+//
+// Persistently assume that links within the original repository use the
+// following format:
+//
+//   example.forge/blob/COMMIT_HASH/path/to/doc
+//
+// (docPath: string) => { url: string | undefined }
+const getDocOriginUrl = (docPath) => {
+  let p = fs.realpathSync(docPath);
+  let m = undefined;
+
+  for (const module of modules) {
+    if (p.includes(module.path)) {
+      m = module;
+      break;
+    }
+  }
+
+  if (m != undefined) {
+    const u = m['url'];
+    const p = path.relative(m['path'], docPath);
+    const h = m['hash'];
+    return `${u}/blob/${h}/${p}`;
+  } else {
+    return undefined;
+  }
 };
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Zero to Flakes',
-  tagline: 'A guide to writing modular Nix flakes for developing software and systems',
+  tagline:
+    'A guide to writing modular Nix flakes for developing software and systems',
   favicon: 'img/logo.svg',
 
   // Set the production url of your site here
@@ -49,27 +112,14 @@ const config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
           editUrl: ({ docPath, versionDocsDirPath }) => {
             const versionDocPath = path.join(versionDocsDirPath, docPath);
-            let editURL;
-            const realPath = fs.realpathSync(versionDocPath);
-            const extPath = Object.keys(extOriginRepo).find(
-              extPath => realPath.includes(extPath)
-            );
-            if (extPath) {
-              const extOriginRepoURL = extOriginRepo[extPath];
-              const extGitPath = path.join('.git/modules', extPath);
-              const refContent = fs.readFileSync(path.join(extGitPath, 'HEAD'), 'utf-8').trim();
-              const commitHash = refContent.startsWith('ref:')
-                ? fs.readFileSync(path.join(extGitPath, refContent.split(' ')[1]), 'utf-8').trim()
-                : refContent;
-             editURL = `${extOriginRepoURL.replace(/\.git$/, '')}/blob/${commitHash}/${path.relative(extPath, realPath)}`;
+            const docOriginUrl = getDocOriginUrl(versionDocPath);
+            if (docOriginUrl) {
+              return docOriginUrl;
             } else {
-              editURL = `https://github.com/juspay/zero-to-flakes/tree/main/${versionDocPath}`;
+              return `https://github.com/juspay/zero-to-flakes/tree/main/${versionDocPath}`;
             }
-            return editURL;
           },
         },
         theme: {
@@ -118,10 +168,10 @@ const config = {
             label: 'GitHub',
             position: 'right',
           },
-      ],
-    },
-    footer: {
-      style: 'dark',
+        ],
+      },
+      footer: {
+        style: 'dark',
         links: [
           {
             title: 'Docs',
