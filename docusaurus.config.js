@@ -55,11 +55,11 @@ const modules = getModules();
 //
 // (docPath: string) => { url: string | undefined }
 const getDocOriginUrl = (docPath) => {
-  let p = fs.realpathSync(docPath);
+  let rp = fs.realpathSync(docPath);
   let m = undefined;
 
   for (const module of modules) {
-    if (p.includes(module.path)) {
+    if (rp.includes(module.path)) {
       m = module;
       break;
     }
@@ -67,7 +67,7 @@ const getDocOriginUrl = (docPath) => {
 
   if (m != undefined) {
     const u = m['url'];
-    const p = path.relative(m['path'], docPath);
+    const p = path.relative(m['path'], rp);
     const h = m['hash'];
     return `${u}/blob/${h}/${p}`;
   } else {
