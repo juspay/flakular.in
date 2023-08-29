@@ -3,13 +3,85 @@
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
-const path = require("path")
+const fs = require('fs');
+const path = require('path');
 
+// Parse the .gitmodules file and return information of all modules.
+//
+// () => { { path: string, url: string, hash: string | undefined }[] }
+const getGitSubModules = () => {
+  const config = path.join('.gitmodules');
+  const content = fs.readFileSync(config, 'utf-8');
+
+  const gitmodules = [];
+  const regex = /\[submodule "(.+)"\][\s]*path = (.+)[\s]*url = (.+)/g;
+
+  for (let match; (match = regex.exec(content)) !== null; ) {
+    const [, mPath, , mUrl] = match;
+
+    // For a git submodule `foo/bar', its HEAD locates at
+    // `.git/modules/foo/bar/HEAD'.
+    const headPath = path.join('.git', 'modules', mPath, 'HEAD');
+
+    const mHash = (() => {
+      try {
+        const content = fs.readFileSync(headPath, 'utf-8');
+        return content.trim();
+      } catch (error) {
+        console.error(`Error reading ${headPath}: ${error.message}`);
+        return undefined;
+      }
+    })();
+
+    gitmodules.push({
+      path: mPath,
+      // example.forge/foo.git -> example.forge/foo
+      url: mUrl.replace(/\.git$/, ''),
+      hash: mHash,
+    });
+  }
+
+  // In the absence of parsing outcomes, what should be taken?
+
+  return gitmodules;
+};
+
+const gitmodules = getGitSubModules();
+
+// Construct the link of a document back to its original repository.
+//
+// Persistently assume that links within the original repository use the
+// following format:
+//
+//   example.forge/blob/COMMIT_HASH/path/to/doc
+//
+// (docPath: string) => { url: string | undefined }
+const getDocOriginUrl = (docPath) => {
+  let rp = fs.realpathSync(docPath);
+  let m = undefined;
+
+  for (const gitmodule of gitmodules) {
+    if (rp.includes(gitmodule['path'])) {
+      m = gitmodule;
+      break;
+    }
+  }
+
+  if (m != undefined) {
+    const u = m['url'];
+    const p = path.relative(m['path'], rp);
+    const h = m['hash'];
+    return `${u}/blob/${h}/${p}`;
+  } else {
+    return undefined;
+  }
+};
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Zero to Flakes',
-  tagline: 'A guide to writing modular Nix flakes for developing software and systems',
+  tagline:
+    'A guide to writing modular Nix flakes for developing software and systems',
   favicon: 'img/logo.svg',
 
   // Set the production url of your site here
@@ -42,10 +114,15 @@ const config = {
         docs: {
           routeBasePath: '/',
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/juspay/zero-to-flakes/tree/main/',
+          editUrl: ({ docPath, versionDocsDirPath }) => {
+            const versionDocPath = path.join(versionDocsDirPath, docPath);
+            const docOriginUrl = getDocOriginUrl(versionDocPath);
+            if (docOriginUrl) {
+              return docOriginUrl;
+            } else {
+              return `https://github.com/juspay/zero-to-flakes/tree/main/${versionDocPath}`;
+            }
+          },
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -93,10 +170,10 @@ const config = {
             label: 'GitHub',
             position: 'right',
           },
-      ],
-    },
-    footer: {
-      style: 'dark',
+        ],
+      },
+      footer: {
+        style: 'dark',
         links: [
           {
             title: 'Docs',
