@@ -6,20 +6,21 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const fs = require('fs');
 const path = require('path');
 
-// Parse the .gitmodules file and return the paths to the links of all modules.
+// Parse the .gitmodules file and return information of all modules.
 //
-// () => { { path: string; url: string; hash: string | undefined; }[] }
-const getModules = () => {
-  //
+// () => { { path: string, url: string, hash: string | undefined }[] }
+const getGitSubModules = () => {
   const config = path.join('.gitmodules');
   const content = fs.readFileSync(config, 'utf-8');
 
-  // { path: string; url: string; hash: string | undefined; }[]
-  const modules = [];
+  const gitmodules = [];
   const regex = /\[submodule "(.+)"\][\s]*path = (.+)[\s]*url = (.+)/g;
 
   for (let match; (match = regex.exec(content)) !== null; ) {
     const [, mPath, , mUrl] = match;
+
+    // For a git submodule `foo/bar', its HEAD locates at
+    // `.git/modules/foo/bar/HEAD'.
     const headPath = path.join('.git', 'modules', mPath, 'HEAD');
 
     const mHash = (() => {
@@ -31,7 +32,8 @@ const getModules = () => {
         return undefined;
       }
     })();
-    modules.push({
+
+    gitmodules.push({
       path: mPath,
       // example.forge/foo.git -> example.forge/foo
       url: mUrl.replace(/\.git$/, ''),
@@ -41,10 +43,10 @@ const getModules = () => {
 
   // In the absence of parsing outcomes, what should be taken?
 
-  return modules;
+  return gitmodules;
 };
 
-const modules = getModules();
+const gitmodules = getGitSubModules();
 
 // Construct the link of a document back to its original repository.
 //
@@ -58,9 +60,9 @@ const getDocOriginUrl = (docPath) => {
   let rp = fs.realpathSync(docPath);
   let m = undefined;
 
-  for (const module of modules) {
-    if (rp.includes(module.path)) {
-      m = module;
+  for (const gitmodule of gitmodules) {
+    if (rp.includes(gitmodule['path'])) {
+      m = gitmodule;
       break;
     }
   }
