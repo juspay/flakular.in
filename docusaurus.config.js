@@ -71,7 +71,11 @@ const getDocOriginUrl = (docPath) => {
     const u = m['url'];
     const p = path.relative(m['path'], rp);
     const h = m['hash'];
-    return `${u}/blob/${h}/${p}`;
+    // TODO: Change "blob" to "edit" such that it will work with master or
+    // main branch. Incidentally, "master" automatically redirects to "main" if
+    // the URL prefix is /blob/, but this doesn't happen for /edit/. So much for
+    // the virtue signalling of git default branch renaming.
+    return `${u}/blob/master/${p}`;
   } else {
     return undefined;
   }
