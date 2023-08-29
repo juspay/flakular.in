@@ -93,39 +93,39 @@ relies on `data-files` in its cabal. These `data-files` can be `js` or `html` fi
   ```
 
 - Now that you know that `bar` is causing the increase in size, let's wrap the executable of `foo` [removing references to](https://srid.ca/remove-references-to) `bar`:
-```nix
-{
-  # Inside `haskellProjects`
-  haskellProjects.default = 
-    let
-      # Forked from: https://github.com/srid/emanote/blob/24c7e5e29a91ec201a48fad1ac028a123b82a402/flake.nix#L52-L62
-      # We shouldn't need this after https://github.com/haskell/cabal/pull/8534
-      removeReferencesTo = disallowedReferences: drv:
-        drv.overrideAttrs (old: rec {
-          inherit disallowedReferences;
-          # Ditch data dependencies that are not needed at runtime.
-          # cf. https://github.com/NixOS/nixpkgs/pull/204675
-          # cf. https://srid.ca/remove-references-to
-          postInstall = (old.postInstall or "") + ''
-            ${lib.concatStrings (map (e: "echo Removing reference to: ${e}\n") disallowedReferences)}
-            ${lib.concatStrings (map (e: "remove-references-to -t ${e} $out/bin/*\n") disallowedReferences)}
-          '';
-        });
-    in
-    {
-      # ...
-      settings = {
-        foo = {self, super, ... }: {
-          justStaticExecutables = true;
-          removeReferencesTo = [
-            self.bar
-          ];
+  ```nix
+  {
+    # Inside `haskellProjects`
+    haskellProjects.default = 
+      let
+        # Forked from: https://github.com/srid/emanote/blob/24c7e5e29a91ec201a48fad1ac028a123b82a402/flake.nix#L52-L62
+        # We shouldn't need this after https://github.com/haskell/cabal/pull/8534
+        removeReferencesTo = disallowedReferences: drv:
+          drv.overrideAttrs (old: rec {
+            inherit disallowedReferences;
+            # Ditch data dependencies that are not needed at runtime.
+            # cf. https://github.com/NixOS/nixpkgs/pull/204675
+            # cf. https://srid.ca/remove-references-to
+            postInstall = (old.postInstall or "") + ''
+              ${lib.concatStrings (map (e: "echo Removing reference to: ${e}\n") disallowedReferences)}
+              ${lib.concatStrings (map (e: "remove-references-to -t ${e} $out/bin/*\n") disallowedReferences)}
+            '';
+          });
+      in
+      {
+        # ...
+        settings = {
+          foo = {self, super, ... }: {
+            justStaticExecutables = true;
+            removeReferencesTo = [
+              self.bar
+            ];
+          };
         };
+        # ...
       };
-      # ...
-    };
-}
-```
+  }
+  ```
 - Voila! Now you have a docker image that is much smaller than before.
 
 ### Time
