@@ -120,7 +120,7 @@ const config = {
             if (docOriginUrl) {
               return docOriginUrl;
             } else {
-              return `https://github.com/juspay/zero-to-flakes/tree/main/${versionDocPath}`;
+              return `https://github.com/juspay/zero-to-flakes/edit/main/${versionDocPath}`;
             }
           },
         },
