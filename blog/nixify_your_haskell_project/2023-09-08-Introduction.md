@@ -1,5 +1,5 @@
 ---
-description: This is my first post on Docusaurus 2.
+description: Introduction to simplifying haskell development with nix.
 slug: nixify-haskell-project-intro
 authors: shivaraj-bh
 tags: [haskell, basics, flakes, nix]
