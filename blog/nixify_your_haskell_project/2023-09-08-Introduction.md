@@ -50,7 +50,7 @@ Next, in the project's root directory, create a file named `flake.nix` and run `
 
 Tl;dr This is how your `flake.nix` will look:
 
-```nix
+```nix title="flake.nix"
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -141,7 +141,7 @@ In the previous section we wrote a hello world flake that contains the "hello" p
 
 Tl;dr Here is the `flake.nix` for this section:
 
-```nix
+```nix title="flake.nix"
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -193,7 +193,7 @@ Our existing flake enables us to *build* the `todo-app`. However, what if want t
 
 Tl;dr Here is the `flake.nix` for this section:
 
-```nix
+```nix title="flake.nix"
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -235,7 +235,7 @@ Up until now, we have nixified the Haskell portion of our project. However, a pr
 
 Tl;dr Here's the `flake.nix`:
 
-```nix
+```nix title="flake.nix"
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
@@ -280,7 +280,7 @@ Tl;dr Here's the `flake.nix`:
 
 Now it's time to consolidate all the previously discussed sections into a single `flake.nix`. Additionally, we should incorporate the necessary apps for `postgrest` and `createdb`. `postgrest` app will start the service and `createdb` will handle tasks such as loading the database dump, creating a database user, and configuring the database for postgREST.
 
-```nix
+```nix title="flake.nix"
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
