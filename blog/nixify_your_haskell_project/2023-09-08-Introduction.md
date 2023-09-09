@@ -7,7 +7,7 @@ hide_table_of_contents: false
 ---
 # Nixify your haskell project: Introduction
 
-The purpose of this blog posts series is to simplify Haskell development workflow for you. In this post we will introduce [Nix](https://nixos.org/) as solution to this. 
+This is the start of a series of blog posts aimed at simplifying Haskell development & packaging workflow using [Nix](https://nixos.org/). In this post, we begin the series by nixifying a Haskell application that uses PostgreSQL database and package it for end-users to run with one command.
 
 Nix is a powerful package manager and build system that provides reproducible and declarative development environment. We will utilize [Nix flakes](https://nixos.wiki/wiki/Flakes) [^1] to declaratively configure this environment[^2]. If you're unfamiliar with Nix, we have [a quick introduction](/nix-rapid) available to help you get started quickly or you can take your time and explore it at [Zero to Nix](https://zero-to-nix.com). A basic understanding of the Nix expression language is assumed. 
 
