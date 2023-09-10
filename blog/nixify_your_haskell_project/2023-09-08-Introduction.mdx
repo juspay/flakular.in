@@ -1,6 +1,6 @@
 ---
 description: Introduction to simplifying haskell development with nix.
-slug: nixify-haskell-project-intro
+slug: nixify-haskell-project-intro2
 authors: shivaraj-bh
 tags: [haskell, basics, flakes, nix]
 hide_table_of_contents: false
@@ -133,7 +133,9 @@ Here's how it will look:
 ```
 [^8]: Run `nix flake show --allow-import-from-derivation` in the further sections as `callCabal2nix` relies on [IFD](https://nixos.wiki/wiki/Import_From_Derivation)
 #### See the flake in action
-[![asciicast](https://asciinema.org/a/591420.svg)](https://asciinema.org/a/591420)
+import AsciinemaWidget from '../../src/components/AsciinemaWidget';
+
+<AsciinemaWidget src="https://asciinema.org/a/591420.cast" speed={3} rows={30} idleTimeLimit={3} preload={true} theme={"solarized-light"} />
 
 ## Nixify Haskell package
 
@@ -185,7 +187,7 @@ The `callCabal2nix` function generates a Haskell package derivation based on its
 
 
 ### Time to run!
-[![asciicast](https://asciinema.org/a/591422.svg)](https://asciinema.org/a/591422)
+<AsciinemaWidget src="https://asciinema.org/a/591422.cast" speed={3} rows={30} idleTimeLimit={3} preload={true} theme={"solarized-light"} />
 
 ## Nixify DevShell
 
@@ -227,7 +229,7 @@ Tl;dr Here is the `flake.nix` for this section:
 - `shellFor` is an abstraction over [`mkShell`](https://ryantm.github.io/nixpkgs/builders/special/mkshell/) geared specifically for Haskell development shells. Generally, we only need to define two keys `packages` and `nativeBuildInputs`. `packages` marks which of the packages in the package set are *local* packages (to be compiled by cabal). `nativeBuildInputs` is used to ensure that the specified packages are present in the `PATH` of the isolated development environment.
 
 ### Let's run!
-[![asciicast](https://asciinema.org/a/591426.svg)](https://asciinema.org/a/591426)
+<AsciinemaWidget src="https://asciinema.org/a/591426.cast" speed={3} rows={30} idleTimeLimit={3} preload={true} theme={"solarized-light"} />
 
 ## Nixify external dependencies
 
@@ -274,7 +276,7 @@ Tl;dr Here's the `flake.nix`:
 - `"${script}"` provides the path in the `nix/store` where the application is located.
 
 ### Run it!
-[![asciicast](https://asciinema.org/a/591427.svg)](https://asciinema.org/a/591427)
+<AsciinemaWidget src="https://asciinema.org/a/591427.cast" speed={3} rows={30} idleTimeLimit={3} preload={true} theme={"solarized-light"} />
 
 ## Nixify Combined
 
@@ -379,7 +381,8 @@ Now it's time to consolidate all the previously discussed sections into a single
 For the complete souce code, visit [here](https://github.com/juspay/todo-app/tree/tutorial/1). It's worth noting that the source code uses [`forAllSystems`](https://zero-to-nix.com/concepts/flakes#system-specificity), which was not included in the tutorial above to maintain simplicity.
 
 ### Video Walkthrough
-[![asciicast](https://asciinema.org/a/591435.svg)](https://asciinema.org/a/591435)
+<AsciinemaWidget src="https://asciinema.org/a/591435.cast" speed={3} rows={30} idleTimeLimit={3} preload={true} theme={"solarized-light"} />
+
 
 ## Conclusion
 
