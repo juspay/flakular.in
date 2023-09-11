@@ -164,6 +164,7 @@ const config = {
             position: 'left',
             label: 'Content',
           },
+          {to: 'blog', label: 'Blog', position: 'left'},
           {
             to: 'about',
             position: 'left',
