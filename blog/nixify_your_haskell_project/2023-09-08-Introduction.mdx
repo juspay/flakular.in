@@ -5,6 +5,9 @@ authors: shivaraj-bh
 tags: [haskell, basics, flakes, nix]
 hide_table_of_contents: false
 ---
+
+import AsciinemaWidget from '../../src/components/AsciinemaWidget';
+
 # Nixify your haskell project: Introduction
 
 This is the start of a series of blog posts aimed at simplifying Haskell development & packaging workflow using [Nix](https://nixos.org/). In this post, we begin the series by nixifying a Haskell application that uses PostgreSQL database and package it for end-users to run with one command.
@@ -149,7 +152,6 @@ Here's how it will look:
         └───default: package 'hello-2.12.1'
 ```
 #### See the flake in action
-import AsciinemaWidget from '../../src/components/AsciinemaWidget';
 
 <AsciinemaWidget src="https://asciinema.org/a/591420.cast" speed={3} rows={30} idleTimeLimit={3} preload={true} theme={"solarized-light"} />
 
