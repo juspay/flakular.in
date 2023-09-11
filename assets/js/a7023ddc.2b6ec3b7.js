@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkzero_to_flakes=self.webpackChunkzero_to_flakes||[]).push([[1713],{3457:l=>{l.exports=JSON.parse('[{"label":"haskell","permalink":"/blog/tags/haskell","count":1},{"label":"basics","permalink":"/blog/tags/basics","count":1},{"label":"flakes","permalink":"/blog/tags/flakes","count":1},{"label":"nix","permalink":"/blog/tags/nix","count":1}]')}}]);
