@@ -68,12 +68,7 @@ docker load -i $(nix build .#dockerImage --print-out-paths)
 
 ### Size
 
-Packages in `self'.packages` are shipped with symlinks to other store paths, like `$out/lib`, `$out/nix-support` and `$out/share/doc`. Along with these, enabling profiling or haddock can also increase the size of the package that you ship. Thus, you will want to strip all but the executables before copying the package to the docker image. This can be achieved using `justStaticExecutables`:
-
-```nix
-  # Inside perSystem
-  packages.default = pkgs.haskell.lib.justStaticExecutables self'.packages.foo;
-```
+Docker images including Haskell packages can be optimized using the methods described [here](/haskell-flake/size).
 
 ### Time
 
