@@ -31,7 +31,7 @@ nix copy --to ssh-ng://admin@100.96.121.13 /nix/store/???
 If you use [nixci](#nixci), this looks like:
 
 ```sh
-nixci --system aarch64-linux | xargs nix copy --to ssh-ng://admin@100.96.121.13
+nixci . -- --option system aarch64-linux | xargs nix copy --to ssh-ng://admin@100.96.121.13
 ```
 
 [nixci]: https://github.com/srid/nixci
