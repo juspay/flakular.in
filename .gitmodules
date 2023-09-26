@@ -10,3 +10,6 @@
 [submodule "ext/process-compose-flake"]
 	path = ext/process-compose-flake
 	url = https://github.com/Platonic-Systems/process-compose-flake.git
+[submodule "ext/nix-browser"]
+	path = ext/nix-browser
+	url = https://github.com/juspay/nix-browser
