@@ -52,3 +52,17 @@ Upgrading macOS is known to break Nix. When this happens, just uninstall Nix and
     - If that path above does not exist, [follow these instructions](https://iohk.zendesk.com/hc/en-us/articles/4415830650265-Uninstall-nix-on-MacOS) to manually unintall Nix.
 1. Reboot your Mac
 1. [Install Nix](/install)
+
+## Nix's sqlite database is corrupted/broken {#sqlite-corrupted}
+
+If nix throws an error like:
+
+```
+error: getting status of '/nix/store/....drv': No such file or directory
+```
+
+You can try to fix it by running:
+
+```
+nix-store --verify --check-contents --repair
+```
