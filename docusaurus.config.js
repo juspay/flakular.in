@@ -124,7 +124,7 @@ const config = {
             if (docOriginUrl) {
               return docOriginUrl;
             } else {
-              return `https://github.com/juspay/flakular/edit/main/${versionDocPath}`;
+              return `https://github.com/juspay/flakular.in/edit/main/${versionDocPath}`;
             }
           },
         },
@@ -172,7 +172,7 @@ const config = {
             label: "About",
           },
           {
-            href: "https://github.com/juspay/flakular",
+            href: "https://github.com/juspay/flakular.in",
             label: "GitHub",
             position: "right",
           },
@@ -212,7 +212,7 @@ const config = {
             items: [
               {
                 label: "GitHub",
-                href: "https://github.com/juspay/flakular",
+                href: "https://github.com/juspay/flakular.in",
               },
             ],
           },
