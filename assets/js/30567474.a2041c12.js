@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkflakular=self.webpackChunkflakular||[]).push([[4957],{499:a=>{a.exports=JSON.parse('{"label":"nix","permalink":"/blog/tags/nix","allTagsPath":"/blog/tags","count":1}')}}]);

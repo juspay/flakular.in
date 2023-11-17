@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkzero_to_flakes=self.webpackChunkzero_to_flakes||[]).push([[1927],{3644:e=>{e.exports=JSON.parse('{"label":"flakes","permalink":"/blog/tags/flakes","allTagsPath":"/blog/tags","count":1}')}}]);

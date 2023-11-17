@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkflakular=self.webpackChunkflakular||[]).push([[2899],{6559:l=>{l.exports=JSON.parse('{"permalink":"/blog/tags/flakes","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);
