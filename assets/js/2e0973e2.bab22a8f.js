@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkflakular=self.webpackChunkflakular||[]).push([[1714],{392:l=>{l.exports=JSON.parse('{"label":"haskell","permalink":"/blog/tags/haskell","allTagsPath":"/blog/tags","count":1,"unlisted":false}')}}]);

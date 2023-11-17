@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkflakular=self.webpackChunkflakular||[]).push([[3907],{9267:e=>{e.exports=JSON.parse('{"title":"Flake Modules","slug":"/modules","permalink":"/modules","navigation":{"previous":{"title":"flake-parts","permalink":"/flake-parts"},"next":{"title":"Haskell","permalink":"/haskell-flake"}}}')}}]);

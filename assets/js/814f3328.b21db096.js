@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkflakular=self.webpackChunkflakular||[]).push([[2535],{5641:e=>{e.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Nixify your haskell project: Introduction","permalink":"/blog/nixify-haskell-project-intro"}]}')}}]);
