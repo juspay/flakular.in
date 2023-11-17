@@ -1,4 +1,4 @@
-# zero-to-flakes
+# flakular
 
 ## Local
 

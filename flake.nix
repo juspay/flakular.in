@@ -24,7 +24,7 @@
 
         # Default shell.
         devShells.default = pkgs.mkShell {
-          name = "zero-to-flakes";
+          name = "flakular";
           inputsFrom = [
             config.treefmt.build.devShell
           ];

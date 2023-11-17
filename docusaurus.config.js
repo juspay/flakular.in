@@ -1,17 +1,17 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
-const fs = require('fs');
-const path = require('path');
+const lightCodeTheme = require("prism-react-renderer/themes/github");
+const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const fs = require("fs");
+const path = require("path");
 
 // Parse the .gitmodules file and return information of all modules.
 //
 // () => { { path: string, url: string, hash: string | undefined }[] }
 const getGitSubModules = () => {
-  const config = path.join('.gitmodules');
-  const content = fs.readFileSync(config, 'utf-8');
+  const config = path.join(".gitmodules");
+  const content = fs.readFileSync(config, "utf-8");
 
   const gitmodules = [];
   const regex = /\[submodule "(.+)"\][\s]*path = (.+)[\s]*url = (.+)/g;
@@ -21,11 +21,11 @@ const getGitSubModules = () => {
 
     // For a git submodule `foo/bar', its HEAD locates at
     // `.git/modules/foo/bar/HEAD'.
-    const headPath = path.join('.git', 'modules', mPath, 'HEAD');
+    const headPath = path.join(".git", "modules", mPath, "HEAD");
 
     const mHash = (() => {
       try {
-        const content = fs.readFileSync(headPath, 'utf-8');
+        const content = fs.readFileSync(headPath, "utf-8");
         return content.trim();
       } catch (error) {
         console.error(`Error reading ${headPath}: ${error.message}`);
@@ -36,7 +36,7 @@ const getGitSubModules = () => {
     gitmodules.push({
       path: mPath,
       // example.forge/foo.git -> example.forge/foo
-      url: mUrl.replace(/\.git$/, ''),
+      url: mUrl.replace(/\.git$/, ""),
       hash: mHash,
     });
   }
@@ -61,16 +61,16 @@ const getDocOriginUrl = (docPath) => {
   let m = undefined;
 
   for (const gitmodule of gitmodules) {
-    if (rp.includes(gitmodule['path'])) {
+    if (rp.includes(gitmodule["path"])) {
       m = gitmodule;
       break;
     }
   }
 
   if (m != undefined) {
-    const u = m['url'];
-    const p = path.relative(m['path'], rp);
-    const h = m['hash'];
+    const u = m["url"];
+    const p = path.relative(m["path"], rp);
+    const h = m["hash"];
     // TODO: Change "blob" to "edit" such that it will work with master or
     // main branch. Incidentally, "master" automatically redirects to "main" if
     // the URL prefix is /blob/, but this doesn't happen for /edit/. So much for
@@ -83,136 +83,136 @@ const getDocOriginUrl = (docPath) => {
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Zero to Flakes',
+  title: "Flakular",
   tagline:
-    'A guide to writing modular Nix flakes for developing software and systems',
-  favicon: 'img/logo.svg',
+    "A guide to writing modular Nix flakes for developing software and systems",
+  favicon: "img/logo.svg",
 
   // Set the production url of your site here
-  url: 'https://zero-to-flakes.com',
+  url: "https://flakular.in",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: "/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'juspay', // Usually your GitHub org/user name.
-  projectName: 'zero-to-flakes', // Usually your repo name.
+  organizationName: "juspay", // Usually your GitHub org/user name.
+  projectName: "flakular", // Usually your repo name.
 
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenLinks: "throw",
+  onBrokenMarkdownLinks: "warn",
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
   // to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: "en",
+    locales: ["en"],
   },
 
   presets: [
     [
-      'classic',
+      "classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          routeBasePath: '/',
-          sidebarPath: require.resolve('./sidebars.js'),
+          routeBasePath: "/",
+          sidebarPath: require.resolve("./sidebars.js"),
           editUrl: ({ docPath, versionDocsDirPath }) => {
             const versionDocPath = path.join(versionDocsDirPath, docPath);
             const docOriginUrl = getDocOriginUrl(versionDocPath);
             if (docOriginUrl) {
               return docOriginUrl;
             } else {
-              return `https://github.com/juspay/zero-to-flakes/edit/main/${versionDocPath}`;
+              return `https://github.com/juspay/flakular/edit/main/${versionDocPath}`;
             }
           },
         },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve("./src/css/custom.css"),
         },
       }),
     ],
   ],
 
-  plugins: [require.resolve(path.join(__dirname, '/plugins/symlink-resolver'))],
+  plugins: [require.resolve(path.join(__dirname, "/plugins/symlink-resolver"))],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
       // image: 'img/docusaurus-social-card.jpg',
-      image: 'img/logo.svg',
+      image: "img/logo.svg",
       /*
       announcementBar: {
         id: 'wip',
-        content: 'Zero to Flakes is a <a href="/about">work in progress</a>.',
+        content: 'Flakular is a <a href="/about">work in progress</a>.',
         backgroundColor: '#fafbfc',
         textColor: '#091E42',
         isCloseable: true,
       },
       */
       navbar: {
-        title: 'Zero to Flakes',
+        title: "Flakular",
         logo: {
-          alt: 'Zero to Flakes Logo',
-          src: 'img/logo.svg',
+          alt: "Flakular Logo",
+          src: "img/logo.svg",
         },
         items: [
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'left',
-            label: 'Content',
+            type: "docSidebar",
+            sidebarId: "tutorialSidebar",
+            position: "left",
+            label: "Content",
           },
-          {to: 'blog', label: 'Blog', position: 'left'},
+          { to: "blog", label: "Blog", position: "left" },
           {
-            to: 'about',
-            position: 'left',
-            label: 'About',
+            to: "about",
+            position: "left",
+            label: "About",
           },
           {
-            href: 'https://github.com/juspay/zero-to-flakes',
-            label: 'GitHub',
-            position: 'right',
+            href: "https://github.com/juspay/flakular",
+            label: "GitHub",
+            position: "right",
           },
         ],
       },
       footer: {
-        style: 'dark',
+        style: "dark",
         links: [
           {
-            title: 'Docs',
+            title: "Docs",
             items: [
               {
-                label: 'Get Started',
-                to: '/intro',
+                label: "Get Started",
+                to: "/intro",
               },
             ],
           },
           {
-            title: 'Community',
+            title: "Community",
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/nix',
+                label: "Stack Overflow",
+                href: "https://stackoverflow.com/questions/tagged/nix",
               },
               {
-                label: 'Matrix',
-                href: 'http://app.element.io/#/room/%23zero-to-flakes:matrix.org',
+                label: "Matrix",
+                href: "http://app.element.io/#/room/%23flakular:matrix.org",
               },
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/zerotoflakes',
+                label: "Twitter",
+                href: "https://twitter.com/zerotoflakes",
               },
             ],
           },
           {
-            title: 'More',
+            title: "More",
             items: [
               {
-                label: 'GitHub',
-                href: 'https://github.com/juspay/zero-to-flakes',
+                label: "GitHub",
+                href: "https://github.com/juspay/flakular",
               },
             ],
           },
@@ -220,8 +220,8 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} Juspay, Inc.`,
       },
       prism: {
-        defaultLanguage: 'nix',
-        additionalLanguages: ['haskell', 'nix', 'rust'],
+        defaultLanguage: "nix",
+        additionalLanguages: ["haskell", "nix", "rust"],
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
