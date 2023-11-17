@@ -203,7 +203,7 @@ const config = {
               },
               {
                 label: "Twitter",
-                href: "https://twitter.com/zerotoflakes",
+                href: "https://twitter.com/flakular",
               },
             ],
           },
