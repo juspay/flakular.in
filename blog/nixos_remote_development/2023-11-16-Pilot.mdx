@@ -77,7 +77,7 @@ It is assumed that the user has a basic understanding of Nix (the language), if 
 
 ### `nixosConfigurations` attribute
 
-The key of this attribute is the name of the NixOS configuration. You can define multiple of them in a single flake:
+It is a set of attributes, where each attribute is a NixOS configuration. This is how it looks like with two configurations:
 ```nix
 # Inside `outputs`
 {
