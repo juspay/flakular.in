@@ -175,7 +175,7 @@ In this module we do the following things:
 
 ## Deploying the configuration
 
-This is where we address the elephant in the room. How do we install an operating system (OS) without a bootable USB? The answer is, we use the RAM as a bootable disk. We achieve this with [`kexec`](https://en.wikipedia.org/wiki/Kexec) to load the nixos image into RAM. Once loaded, the control is switched from your current OS to the image running on the RAM, this image then partitions the disk and installs the system on your hard drive.
+This is where we address the elephant in the room. How do we install an operating system without a bootable USB? The answer is, we use the RAM as a bootable disk. We achieve this with [`kexec`](https://en.wikipedia.org/wiki/Kexec) to load the nixos image into RAM. Once loaded, the control is switched from your current OS to the image running on the RAM, this image then partitions the disk and installs the system on your hard drive.
 
 But don't we already need a linux based OS to be running to run `kexec` in the first place? Yes, we do. If you don't have one, you can also use a [live/rescue image](https://en.wikipedia.org/wiki/Live_USB) to do this.
 
