@@ -17,28 +17,185 @@ In this series of blog posts, we'll explore how to set up a remote development e
 
 ## Why?
 
-...
+Have you ever worked on a project that takes forever to compile? Or maybe you just want to compile for linux while working on a Mac. If yes, then this post is for you.
 
-## The NixOS configuration explained
 
-...
+## The `flake.nix` file
 
-### Disko
+:::note
+If you are looking to just get started, you can skip this section and jump to the [next one](#deploying-the-configuration).
+:::
 
-...
+```nix title="flake.nix"
+{
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+  };
+  outputs = { nixpkgs, disko, ... }:
+    {
+      nixosConfigurations.office = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          disko.nixosModules.disko
+          ({ ... }: {
+            imports = [
+              ./disk-config.nix
+            ];
+            services.openssh.enable = true;
+            users.users = {
+              root = {
+                # Post-installation, the IP might change if MAC is not the
+                # only identifier used by DHCP server to lease an IP, by setting a
+                # password you can find the changed IP.
+                initialHashedPassword = "";
+                openssh.authorizedKeys.keys = [
+                  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFN5Ov2zDIG59/DaYKjT0sMWIY15er1DZCT9SIak07vK"
+                ];
+              };
+            };
+            boot.loader.grub = {
+              # adding devices is managed by disko
+              # devices = [ ];
+              efiSupport = true;
+              efiInstallAsRemovable = true;
+            };
+            system.stateVersion = "23.11";
+          }
+          )
+        ];
+      };
+    };
+}
+```
 
-### nixos-anywhere
+:::note
+It is assumed that the user has a basic understanding of Nix (the language), if not, you can check out the rapid introduction to [Nix] and [Flakes].
 
-...
+[Nix]: /nix-rapid
+[Flakes]: /nix-rapid#flakes
+:::
+
+### `nixosConfigurations` attribute
+
+The key of this attribute is the name of the NixOS configuration. You can define multiple of them in a single flake:
+```nix
+# Inside `outputs`
+{
+    nixosConfigurations = {
+        office = { ... };
+        home = { ... };
+    };
+}
+```
+
+:::note
+It is not mandatory to put your configuration under `nixosConfigurations` attribute, but by doing so you can run `nixos-rebuild switch --flake .#office` instead of specifying the entire path to the attribute.
+:::
+
+### `nixpkgs.lib.nixosSystem` function
+
+A high-level function with `system` and `modules` as its required parameters, among others, returning an attribute set. The attribute that we are interested in is `nixosConfigurations.office.config.system.build.toplevel`, which is a derivation that builds the system and provides a script to activate it.
+
+### Disko module
+
+[Disko](https://github.com/nix-community/disko) allows you to define your disk configuration in nix. The configuration that we are using is:
+```nix title="disk-config.nix"
+{
+  disko.devices = {
+    disk = {
+      main = {
+        type = "disk";
+        device = "/dev/nvme0n1";
+        content = {
+          type = "gpt";
+          partitions = {
+            boot = {
+              size = "1M";
+              type = "EF02"; # for grub MBR
+            };
+            ESP = {
+              size = "512M";
+              type = "EF00";
+              content = {
+                type = "filesystem";
+                format = "vfat";
+                mountpoint = "/boot";
+              };
+            };
+            root = {
+              size = "100%";
+              content = {
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/";
+              };
+            };
+          };
+        };
+      };
+    };
+  };
+}
+```
+
+The two important attributes here are:
+- `disko.devices.disk.<device-name>.device`: The device name of the disk to partition.
+- `disko.devices.disk.<device-name>.content.partitions`:
+    <!-- Is the boot partition necessary? -->
+    - [`boot`](https://en.wikipedia.org/wiki/BIOS_boot_partition)
+    - [`ESP`](https://en.wikipedia.org/wiki/EFI_system_partition)
+    - [`root`](https://en.wikipedia.org/wiki/Root_directory)
+
+### `configuration.nix` as a module
+
+Traditionally, `configuration.nix` is a file that contains the entire NixOS configuration. But, in this case, we are using it as a module. This is how it looks like, in the [`flake.nix`](#the-flake.nix-file):
+```nix
+# Inside `outputs`
+{
+    nixosConfigurations.office = lib.nixosSystem{
+        # ...
+        modules = [
+            # ...
+            ({ ... }: {
+                # Your `configuration.nix` goes here
+            })
+        ];
+    }
+}
+```
+
+In this module we do the following things:
+- Enable SSH access to the machine.
+- Set a password for the `root` user.
+- Add an SSH key to the `root` user's `authorized_keys` file.
+- Enable GRUB with EFI support.
+<!-- Verify the point below -->
+- Set the `system.stateVersion` to `23.11` to avoid rebuilding the system on every `nixos-rebuild switch`.
+- Import the `disk-config.nix` file that we created [earlier](#disko-module).
 
 ## Deploying the configuration
 
-...
+This is where we address the elephant in the room. How do we install an operating system (OS) without a bootable USB? The answer is, we use the RAM as a bootable disk. We achieve this with [`kexec`](https://en.wikipedia.org/wiki/Kexec) to load the nixos image into RAM. Once loaded, the control is switched from your current OS to the image running on the RAM, this image then partitions the disk and installs the system on your hard drive.
+
+But don't we already need a linux based OS to be running to run `kexec` in the first place? Yes, we do. If you don't have one, you can also use a [live/rescue image](https://en.wikipedia.org/wiki/Live_USB) to do this.
+
+[`nixos-anywhere`](https://github.com/nix-community/nixos-anywhere) is a tool that automates this process for us. To follow along:
+```sh
+git clone https://github.com/juspay/remote-development.git
+cd remote-development
+git checkout a23acb9cb0a51e048096b3e4c8130b979ca0c2fa
+```
+
+The [README](https://github.com/juspay/remote-development/blob/a23acb9cb0a51e048096b3e4c8130b979ca0c2fa/README.md) should help you get started with the installation. Once you are done, you should be able to SSH into the machine.
 
 ## What's next?
 
-...
+In the next blog post, we'll explore how to make incremental changes to the configuration and deploy them to the machine.
+
+You can track the progress [here](https://github.com/juspay/remote-development/issues/2).
 
 ## Credits
 
-...
+Thanks to [srid](https://srid.ca/) for all the help and feedback.
