@@ -8,12 +8,9 @@ hide_table_of_contents: false
 
 # NixOS Remote Development
 
-In this series of blog posts, we'll explore how to set up a remote development environment using NixOS. The goal of this post is to have a minimal NixOS configuration that provides SSH access to the machine.
-
-## Prerequisites
-
-- A linux machine with Nix installed.
-- SSH access to the target machine (You heard that right, you don't need a bootable USB).
+In this series of blog posts, we'll explore how to set up a remote development environment using NixOS. The goal of this post is to:
+- Create a minimal NixOS configuration.
+- Deploy the configuration (partition the disk and install the OS) to a remote machine over SSH (without a bootable USB).
 
 ## Why?
 
