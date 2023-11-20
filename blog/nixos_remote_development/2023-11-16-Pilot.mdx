@@ -24,6 +24,13 @@ If you are someone who would like to use a powerful remote machine for developme
 If you are looking to just get started, you can skip this section and jump to the [next one](#deploying-the-configuration).
 :::
 
+:::note
+It is assumed that the user has a basic understanding of Nix (the language), if not, you can check out the rapid introduction to [Nix] and [Flakes].
+
+[Nix]: /nix-rapid
+[Flakes]: /nix-rapid#flakes
+:::
+
 ```nix title="flake.nix"
 {
   inputs = {
@@ -67,13 +74,6 @@ If you are looking to just get started, you can skip this section and jump to th
     };
 }
 ```
-
-:::note
-It is assumed that the user has a basic understanding of Nix (the language), if not, you can check out the rapid introduction to [Nix] and [Flakes].
-
-[Nix]: /nix-rapid
-[Flakes]: /nix-rapid#flakes
-:::
 
 ### `nixosConfigurations` attribute
 
