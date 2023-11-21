@@ -21,7 +21,7 @@ If you are someone who would like to use a powerful remote machine for developme
 ## The `flake.nix` file
 
 :::note
-If you are looking to just get started, you can skip this section and jump to the [next one](#deploying-the-configuration).
+If you are looking to just get started, you can skip this section and jump to the [installation](#installing-nixos).
 :::
 
 :::note
@@ -175,7 +175,7 @@ In this module we do the following things:
 - Set the `system.stateVersion` to `23.11` to avoid rebuilding the system on every `nixos-rebuild switch`.
 - Import the `disk-config.nix` file that we created [earlier](#disko-module).
 
-## Deploying the configuration
+## Installing NixOS
 
 This is where we address the elephant in the room. How do we install an operating system without a bootable USB? The answer is, we use the RAM as a bootable disk. We achieve this with [`kexec`](https://en.wikipedia.org/wiki/Kexec) to load the nixos image into RAM. Once loaded, the control is switched from your current OS to the image running on the RAM, this image then partitions the disk and installs the system on your hard drive.
 
