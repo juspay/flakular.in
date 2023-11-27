@@ -201,6 +201,10 @@ const config = {
                 href: "https://stackoverflow.com/questions/tagged/nix",
               },
               {
+                label: "Zulip",
+                href: "https://nixos.zulipchat.com/",
+              },
+              {
                 label: "Matrix",
                 href: "http://app.element.io/#/room/%23flakular:matrix.org",
               },
